@@ -9,9 +9,22 @@ namespace Demo2
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public DateTime startDate { get; set; }
-        public DateTime endDate { get; set; }
 
+        public DateTime StartDate
+        {
+            get
+            {
+                return DateTime.Now;
+            }
+        }
+
+        public DateTime EndDate
+        {
+            get
+            {
+                return DateTime.Now ;
+            }
+        }
         #endregion
 
         #region Constructor

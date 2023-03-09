@@ -31,8 +31,7 @@ namespace Demo2
                 Console.WriteLine();
             }
             while (again == 'Y' || again == 'y');
-            Console.WriteLine(again);
-            Console.ReadLine();
+           
             foreach (var item in productList)
             {
                 DisplayProducts(item);
@@ -45,7 +44,7 @@ namespace Demo2
         }
         private static void DisplayProducts(Product item)
         {
-            Console.WriteLine($"\nProduct ID : {item.Id}\nProduct Name : {item.Name}\nProduct Price : {item.Price}\nProduct Form Date : {item.startDate}");
+            Console.WriteLine($"\nProduct ID : {item.Id}\nProduct Name : {item.Name}\nProduct Price : {item.Price}\nProduct Form Date : {item.StartDate}");
         }
 
         public static void UpdateTrackHistory()

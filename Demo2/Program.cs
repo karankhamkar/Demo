@@ -26,14 +26,13 @@ namespace Demo2
                         productStore.AddProduct(product);
                         break;
                     case 2:
-                        //ProductStore.ShowProducts();
+                        ShowProducts(productStore.GetAllProducts());
                         break;
                     case 3:
                         DeleteProduct(productStore);
                         break;
                     case 4:
                         UpadateProduct(productStore);
-                       
                         break;
                     case 5:
                         DisplayDeletedHistory(productStore);
@@ -46,45 +45,37 @@ namespace Demo2
             while (option > 7);
             Console.ReadLine();
 
-            #region Non-Static Methods
-
-
-            void UpdateTrackHistory()
-            {
-                throw new NotImplementedException();
-            }
-
-            void DeleteTrackHistory()
-            {
-                throw new NotImplementedException();
-            }
-
-            void Update()
-            {
-                throw new NotImplementedException();
-            }
-
-            void Deleted()
-            {
-                throw new NotImplementedException();
-            }
-
-            void ShowProducts()
-            {
-                throw new NotImplementedException();
-            }
-            #endregion
 
         }
 
         private static void DisplayUpdatedHistory(ProductStore productStore)
         {
-            
+            var productList = productStore.GetUpdateHistory();
+
+            if (productList != null && productList.Any())
+            {
+                Console.WriteLine("Showing History Of Updated Products.");
+                ShowProducts(productList);
+            }
+            else
+            {
+                Console.WriteLine("Updated History Is Empty.");
+            }
         }
 
         private static void DisplayDeletedHistory(ProductStore productStore)
         {
-            
+            var productList = productStore.GetDeleteHistory();
+            if (productList != null && productList.Any())
+            {
+                Console.WriteLine("Showing History Of Deleted Products.");
+                ShowProducts(productList);
+            }
+            else
+            {
+                Console.WriteLine("Deletd History Is Empty.");
+            }
+
         }
 
         private static void DeleteProduct(ProductStore productStore)
@@ -98,19 +89,19 @@ namespace Demo2
         {
             Console.WriteLine("Which Product Do You Want To Udate?\nPlease enter Product Id.");
             int productId = int.Parse(Console.ReadLine());
-           Product product = GetProduct(false, productId);
-           productStore.Update(product);
+            Product product = GetProduct(false, productId);
+            productStore.Update(product);
         }
 
-        #region Non-Static Methods
-        public static Product GetProduct(bool isNew,int? productId = null)
+        #region Static Methods
+        public static Product GetProduct(bool isNew, int? productId = null)
         {
             int id;
             string name;
             decimal price;
             if (isNew)
             {
-                 id = GetProductId();
+                id = GetProductId();
             }
             else
             {
@@ -123,36 +114,16 @@ namespace Demo2
             return product;
         }
 
-        public static void ShowProducts()
+        public static void ShowProducts(IEnumerable<Product> productList)
         {
-            // foreach (var item in productList)
-            //{
-            //    DisplayProducts(item);
-            //}
+            foreach (var item in productList)
+            {
+                DisplayProducts(item);
+            }
         }
         private static void DisplayProducts(Product item)
         {
             Console.WriteLine($"\nProduct ID : {item.Id}\nProduct Name : {item.Name}\nProduct Price : {item.Price}\nProduct Form Date : {item.StartDate}");
-        }
-
-        public static void UpdateTrackHistory()
-        {
-            throw new NotImplementedException();
-        }
-
-        public static void DeleteTrackHistory()
-        {
-            throw new NotImplementedException();
-        }
-
-        public static void Update()
-        {
-            throw new NotImplementedException();
-        }
-
-        public static void Deleted()
-        {
-            throw new NotImplementedException();
         }
 
         private static decimal GetPrice()

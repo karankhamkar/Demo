@@ -43,5 +43,30 @@ namespace Demo2
                 }
             }
         }
+
+        public IEnumerable<Product> GetUpdateHistory()
+        {
+           List<Product> products = new List<Product>();
+            foreach (var item in productList)
+            {
+                if(item.EndDate != null && item.IsDeleted == false)
+                {
+                    products.Add(item);
+                }
+            }
+            return products;
+        }
+        public IEnumerable<Product> GetDeleteHistory()
+        {
+            List<Product> products = new List<Product>();
+            foreach (var item in productList)
+            {
+                if (item.IsDeleted == true)
+                {
+                    products.Add(item);
+                }
+            }
+            return products;
+        }
     }
 }

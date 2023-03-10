@@ -9,22 +9,35 @@ namespace Demo2
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-
+        private DateTime _startDate;
         public DateTime StartDate
         {
             get
             {
-                return DateTime.Now;
+                return _startDate;
             }
-        }
 
-        public DateTime EndDate
+        }
+        private DateTime? _endDate;
+        public DateTime? EndDate
         {
             get
             {
-                return DateTime.Now ;
+                return _endDate;
+            }
+            private set
+            {
+                _endDate = value;
             }
         }
+        private bool _isDeleted;
+
+        public bool IsDeleted
+        {
+            get { return _isDeleted; }
+            private set { _isDeleted = value; }
+        }
+
         #endregion
 
         #region Constructor
@@ -33,6 +46,8 @@ namespace Demo2
             Id = id;
             Name = name;
             Price = price;
+            _startDate = DateTime.Now;
+            this.IsDeleted = false;
         }
 
 
@@ -68,10 +83,16 @@ namespace Demo2
             bool isValidPrice = decimal.TryParse(input, out parsedDecimal);
             if (isValidPrice)
             {
-                result= true;
+                result = true;
                 price = parsedDecimal;
             }
             return result;
+        }
+
+        public void Delete()
+        {
+            this.EndDate = DateTime.Now;
+            this.IsDeleted = true;
         }
         #endregion
     }

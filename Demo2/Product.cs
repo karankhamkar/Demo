@@ -2,6 +2,7 @@
 
 namespace Demo2
 {
+    [Serializable]
     public class Product
     {
 
@@ -25,7 +26,7 @@ namespace Demo2
             {
                 return _endDate;
             }
-            private set
+            set
             {
                 _endDate = value;
             }

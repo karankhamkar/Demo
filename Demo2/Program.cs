@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Demo2
 {
@@ -17,7 +15,7 @@ namespace Demo2
             int option;
             do
             {
-                Console.WriteLine("Select your choice from following Menu : \n1. Add Products.\n2. Show Products.\n3. Delete Product.\n4. Update Product.\n5. Delete Record History.\n6. Get Product JanamKundali.\n7. Exit Program.\nEnter Your Choice : ");
+                Menu();
                 option = int.Parse(Console.ReadLine());
                 switch (option)
                 {
@@ -40,60 +38,26 @@ namespace Demo2
                     case 6:
                         DisplayUpdatedHistory(productStore);
                         break;
+                    case 7:
+                        ConvertToFile(productStore);
+                        break;
+                    case 8:
+                        ConvertFileToConsole(productStore);
+                        break;
                 }
             }
-            while (option > 7);
+            while (option < 9);
             Console.ReadLine();
-
-
         }
 
-        private static void DisplayUpdatedHistory(ProductStore productStore)
-        {
-            var productList = productStore.GetUpdateHistory();
-
-            if (productList != null && productList.Any())
-            {
-                Console.WriteLine("Showing History Of Updated Products.");
-                ShowProducts(productList);
-            }
-            else
-            {
-                Console.WriteLine("Updated History Is Empty.");
-            }
-        }
-
-        private static void DisplayDeletedHistory(ProductStore productStore)
-        {
-            var productList = productStore.GetDeleteHistory();
-            if (productList != null && productList.Any())
-            {
-                Console.WriteLine("Showing History Of Deleted Products.");
-                ShowProducts(productList);
-            }
-            else
-            {
-                Console.WriteLine("Deletd History Is Empty.");
-            }
-
-        }
-
-        private static void DeleteProduct(ProductStore productStore)
-        {
-            Console.WriteLine("Which Product Do You Want To Delete?\nPlease enter Product Id.");
-            int productId = int.Parse(Console.ReadLine());
-            productStore.Delete(productId);
-        }
-
-        private static void UpadateProduct(ProductStore productStore)
-        {
-            Console.WriteLine("Which Product Do You Want To Udate?\nPlease enter Product Id.");
-            int productId = int.Parse(Console.ReadLine());
-            Product product = GetProduct(false, productId);
-            productStore.Update(product);
-        }
+        
 
         #region Static Methods
+        private static void Menu()
+        {
+            Console.WriteLine("\nSelect your choice from following Menu : \n1. Add Products.\n2. Show Products.\n3. Delete Product.\n4. Update Product.\n5. Delete Record History.\n6. Get Product JanamKundali.\n7. Create File Of Product.\n8. Get File From Machine.\n9. Exit Program.\nEnter Your Choice : ");
+        }
+
         public static Product GetProduct(bool isNew, int? productId = null)
         {
             int id;
@@ -123,7 +87,7 @@ namespace Demo2
         }
         private static void DisplayProducts(Product item)
         {
-            Console.WriteLine($"\nProduct ID : {item.Id}\nProduct Name : {item.Name}\nProduct Price : {item.Price}\nProduct Form Date : {item.StartDate}");
+            Console.WriteLine($"\nProduct ID : {item.Id}\nProduct Name : {item.Name}\nProduct Price : {item.Price}\nProduct Form Date : {item.StartDate}\nProduct End Date : {item.EndDate}");
         }
 
         private static decimal GetPrice()
@@ -171,6 +135,74 @@ namespace Demo2
                 Console.WriteLine("Invalid Product Id.\nRe-enter Product Id.");
                 return GetProductId();
             }
+        }
+        private static void ConvertToFile(ProductStore productStore)
+        {
+            Console.WriteLine("Create File Here.");
+            string path = @"C:\Training\Pitech\Pune Training\C#\Day 6\ProductList"+ Guid.NewGuid()+".txt";
+            var productList = productStore.GetUpdateHistory();
+            FileStream stream = new FileStream(path,FileMode.OpenOrCreate);
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            binaryFormatter.Serialize(stream, productList);
+            stream.Close();
+            Console.WriteLine("\nFile Created Successfully at ->\n"+path);
+
+        }
+        private static void ConvertFileToConsole(ProductStore productStore)
+        {
+            string path = @"C:\Training\Pitech\Pune Training\C#\Day 6\ProductList2cfa5d99-a5f6-454b-8781-2dde388815ce.txt";
+            FileStream stream  = new FileStream(path, FileMode.OpenOrCreate);
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            productStore = (ProductStore)binaryFormatter.Deserialize(stream);
+            Console.WriteLine(productStore.GetAllProducts());
+            stream.Close();
+
+        }
+        private static void DisplayUpdatedHistory(ProductStore productStore)
+        {
+            var productList = productStore.GetUpdateHistory();
+
+            if (productList != null && productList.Any())
+            {
+                Console.WriteLine("\nShowing History Of Updated Products.");
+                ShowProducts(productList);
+            }
+            else
+            {
+                Console.WriteLine("\nUpdated History Is Empty.");
+            }
+        }
+
+        private static void DisplayDeletedHistory(ProductStore productStore)
+        {
+            var productList = productStore.GetDeleteHistory();
+            if (productList != null && productList.Any())
+            {
+                Console.WriteLine("\nShowing History Of Deleted Products.");
+                ShowProducts(productList);
+            }
+            else
+            {
+                Console.WriteLine("\nDeletd History Is Empty.");
+            }
+
+        }
+
+        private static void DeleteProduct(ProductStore productStore)
+        {
+            Console.WriteLine("Which Product Do You Want To Delete?\nPlease enter Product Id.");
+            int productId = int.Parse(Console.ReadLine());
+            productStore.Delete(productId);
+            Console.WriteLine("\nDelete Product Successfully.");
+        }
+
+        private static void UpadateProduct(ProductStore productStore)
+        {
+            Console.WriteLine("Which Product Do You Want To Udate?\nPlease enter Product Id.");
+            int productId = int.Parse(Console.ReadLine());
+            Product product = GetProduct(false, productId);
+            productStore.Update(product);
+            Console.WriteLine("\nUpdate Product Successfully.");
         }
         #endregion
     }

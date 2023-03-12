@@ -13,6 +13,7 @@ namespace Demo2
             Console.WriteLine("=================================== Welcome To Product Application ==================================");
             ProductStore productStore = new ProductStore();
             int option;
+            GetUser();
             do
             {
                 Menu();
@@ -50,9 +51,59 @@ namespace Demo2
             Console.ReadLine();
         }
 
-        
-
         #region Static Methods
+        private static void GetUser()
+        {
+           
+            string enteredUsername = GetUserName();
+            string enteredPassword = GetPassWord();
+
+            bool credentialsMatch = false;
+            foreach (var userCredential in ProductStore.GetAllUser())
+            {
+                if (enteredUsername == userCredential.UserName && enteredPassword == userCredential.Password)
+                {
+                    credentialsMatch = true;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Inputs.Please Try Agian");
+                    GetUser();
+                }
+            }
+        }
+
+        private static string GetPassWord()
+        {
+            Console.WriteLine("\nPlease enter your password :");
+            string input = Console.ReadLine();
+            if (User.IsPasswordValid(input))
+            {
+                return input;
+            }
+            else
+            {
+                Console.WriteLine("Invaid PassWord or Password exceeds the character limit.\nPlease Re-enter name.");
+                return GetName();
+            }
+        }
+
+        private static string GetUserName()
+        {
+            Console.WriteLine("\nPlease enter your username :");
+            string input = Console.ReadLine();
+            if (User.IsUserNameValid(input))
+            {
+                return input;
+            }
+            else
+            {
+                Console.WriteLine("\nInvalid User Name.\nPlease Re-enter name.");
+                return GetName();
+            }
+        }
+
         private static void Menu()
         {
             Console.WriteLine("\nSelect your choice from following Menu : \n1. Add Products.\n2. Show Products.\n3. Delete Product.\n4. Update Product.\n5. Delete Record History.\n6. Get Product JanamKundali.\n7. Create File Of Product.\n8. Get File From Machine.\n9. Exit Program.\nEnter Your Choice : ");

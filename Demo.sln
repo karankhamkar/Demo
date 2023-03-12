@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductAppication", "Demo2\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializationDemo", "SerializationDemo\SerializationDemo.csproj", "{A3AEEE00-DF31-4F8D-A83E-5E8B9EE30209}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoLoginPage", "DemoLoginPage\DemoLoginPage.csproj", "{2F9DD5AB-1595-427C-B38D-A55C7E24A717}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A3AEEE00-DF31-4F8D-A83E-5E8B9EE30209}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3AEEE00-DF31-4F8D-A83E-5E8B9EE30209}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3AEEE00-DF31-4F8D-A83E-5E8B9EE30209}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F9DD5AB-1595-427C-B38D-A55C7E24A717}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F9DD5AB-1595-427C-B38D-A55C7E24A717}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F9DD5AB-1595-427C-B38D-A55C7E24A717}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F9DD5AB-1595-427C-B38D-A55C7E24A717}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

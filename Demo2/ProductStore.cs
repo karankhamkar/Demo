@@ -68,5 +68,17 @@ namespace Demo2
             }
             return products;
         }
+
+        public static List<User> GetAllUser()
+        { 
+            List<User> users = new List<User>();
+
+            users.Add(new User("user123", "pass123"));
+            users.Add(new User("Rayba", "password"));
+            users.Add(new User("Netaji", "123456"));
+            users.Add(new User("Raya", "Raya123"));
+            return users;
+        }
+
     }
 }

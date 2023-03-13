@@ -11,6 +11,7 @@ namespace Demo2
         #region Properties
         public string UserName { get; set; }
         public string Password { get; set; }
+        public bool IsAdmin { get; set; }
         #endregion
 
         #region Constructor
@@ -44,6 +45,7 @@ namespace Demo2
             }
             return result;
         }
+       
         #endregion
     }
 }

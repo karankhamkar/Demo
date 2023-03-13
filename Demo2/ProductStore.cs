@@ -6,23 +6,24 @@ using System.Threading.Tasks;
 
 namespace Demo2
 {
+    [Serializable]
     public class ProductStore
     {
-        private  List<Product> productList = new List<Product>();
+        private List<Product> ProductList = new List<Product>();
 
         public  IEnumerable<Product> GetAllProducts()
         {
-            return productList;
+            return ProductList;
         }
 
         public  void AddProduct(Product product)
         {
-            productList.Add(product);
+            ProductList.Add(product);
         }
 
         public void Update(Product product)
         {
-            foreach (var item in productList)
+            foreach (var item in ProductList)
             {
                 if(item.Id == product.Id)
                 {
@@ -30,11 +31,11 @@ namespace Demo2
                     break;
                 }
             }
-            productList.Add(product);
+            ProductList.Add(product);
         }
         public void Delete(int productId)
         {
-            foreach (var item in productList)
+            foreach (var item in ProductList)
             {
                 if (item.Id == productId)
                 {
@@ -47,7 +48,7 @@ namespace Demo2
         public IEnumerable<Product> GetUpdateHistory()
         {
            List<Product> products = new List<Product>();
-            foreach (var item in productList)
+            foreach (var item in ProductList)
             {
                 if(item.EndDate != null && item.IsDeleted == false)
                 {
@@ -59,7 +60,7 @@ namespace Demo2
         public IEnumerable<Product> GetDeleteHistory()
         {
             List<Product> products = new List<Product>();
-            foreach (var item in productList)
+            foreach (var item in ProductList)
             {
                 if (item.IsDeleted == true)
                 {
@@ -69,16 +70,7 @@ namespace Demo2
             return products;
         }
 
-        public static List<User> GetAllUser()
-        { 
-            List<User> users = new List<User>();
-
-            users.Add(new User("user123", "pass123"));
-            users.Add(new User("Rayba", "password"));
-            users.Add(new User("Netaji", "123456"));
-            users.Add(new User("Raya", "Raya123"));
-            return users;
-        }
+       
 
     }
 }

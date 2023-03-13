@@ -85,14 +85,8 @@ namespace DemoLoginPage
                 Console.WriteLine("Invalid username or password. Please try again.");
             }
 
-            IsValidUser();
-
-
         }
 
-        private static void IsValidUser()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
